@@ -1,10 +1,12 @@
-// [Prompt.share] - app.js - v1.0
+// [Prompt.share] - app.js - v1.1
+// Optimized data structure for shorter links.
 
 (function() {
     'use strict';
 
-    // A simple key for our 'cipher'. This is for obfuscation, not security.
     const CIPHER_KEY = 'prompt.share';
+    // Using a Section Sign as a delimiter. It's uncommon in both URLs and prompts.
+    const DELIMITER = '§'; 
 
     /**
      * Simple XOR cipher function.
@@ -12,7 +14,7 @@
      * @returns {string} The result of the XOR operation.
      */
     function xorCipher(text, key) {
-        console.log('[Prompt.share] Applying XOR cipher...');
+        // No change to this function, but keeping it for context.
         let result = '';
         for (let i = 0; i < text.length; i++) {
             result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
@@ -21,28 +23,32 @@
     }
 
     /**
-     * Encodes the data object into a shareable string.
+     * Encodes the data object into a shareable string using an optimized structure.
      * @param {object} data The data to encode (e.g., { prompt: '...', destination: '...' }).
      * @returns {string} The encoded string.
      */
     function encodeData(data) {
         try {
-            console.log('[Prompt.share] Starting encoding process...');
-            const jsonString = JSON.stringify(data);
-            console.log(`[Prompt.share] Original data length: ${jsonString.length}`);
+            console.log('[Prompt.share v1.1] Starting encoding process...');
+            
+            // OPTIMIZATION: Use a delimiter instead of JSON
+            let rawString = data.prompt;
+            if (data.destination) {
+                rawString += DELIMITER + data.destination;
+            }
+            console.log(`[Prompt.share v1.1] Original data length (raw string): ${rawString.length}`);
 
-            const compressed = LZString.compressToUTF16(jsonString);
-            console.log(`[Prompt.share] Compressed data length: ${compressed.length}`);
+            const compressed = LZString.compressToUTF16(rawString);
+            console.log(`[Prompt.share v1.1] Compressed data length: ${compressed.length}`);
             
             const ciphered = xorCipher(compressed, CIPHER_KEY);
             
-            // Using compressToEncodedURIComponent for shorter, URL-safe strings
             const encoded = LZString.compressToEncodedURIComponent(ciphered);
-            console.log(`[Prompt.share] Final encoded length: ${encoded.length}`);
+            console.log(`[Prompt.share v1.1] Final encoded length: ${encoded.length}`);
 
             return encoded;
         } catch (error) {
-            console.error('[Prompt.share] Error during encoding:', error);
+            console.error('[Prompt.share v1.1] Error during encoding:', error);
             return null;
         }
     }
@@ -54,32 +60,42 @@
      */
     function decodeData(encodedString) {
         try {
-            console.log('[Prompt.share] Starting decoding process...');
-            console.log(`[Prompt.share] Encoded string length: ${encodedString.length}`);
+            console.log('[Prompt.share v1.1] Starting decoding process...');
+            console.log(`[Prompt.share v1.1] Encoded string length: ${encodedString.length}`);
 
             const deciphered = LZString.decompressFromEncodedURIComponent(encodedString);
             if (deciphered === null) {
-                console.error('[Prompt.share] Decompression (from URI component) failed. The string might be invalid.');
+                console.error('[Prompt.share v1.1] Decompression (from URI component) failed.');
                 return null;
             }
             
             const decompressed = xorCipher(deciphered, CIPHER_KEY);
             
-            const jsonString = LZString.decompressFromUTF16(decompressed);
-            if (jsonString === null) {
-                console.error('[Prompt.share] Decompression (from UTF16) failed.');
+            const rawString = LZString.decompressFromUTF16(decompressed);
+            if (rawString === null) {
+                console.error('[Prompt.share v1.1] Decompression (from UTF16) failed.');
                 return null;
             }
-            console.log(`[Prompt.share] Decompressed JSON string length: ${jsonString.length}`);
+            console.log(`[Prompt.share v1.1] Decompressed raw string length: ${rawString.length}`);
 
-            const data = JSON.parse(jsonString);
-            console.log('[Prompt.share] Decoding successful:', data);
+            // OPTIMIZATION: Parse the string using our delimiter
+            const parts = rawString.split(DELIMITER);
+            const data = {
+                prompt: parts[0]
+            };
+            if (parts.length > 1) {
+                data.destination = parts[1];
+            }
+
+            console.log('[Prompt.share v1.1] Decoding successful:', data);
             return data;
         } catch (error) {
-            console.error('[Prompt.share] Error during decoding:', error);
+            console.error('[Prompt.share v1.1] Error during decoding:', error);
             return null;
         }
     }
+
+    // --- Page Handler Functions (No changes below this line) ---
 
     /**
      * Logic for the Creator page (creator.html)
