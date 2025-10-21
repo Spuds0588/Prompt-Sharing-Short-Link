@@ -16,8 +16,11 @@
         #generated-link {
             word-wrap: break-word;
         }
-         .footer {
+        .footer {
             padding: 2rem 1.5rem;
+        }
+        .share-buttons .button {
+            margin: 5px;
         }
     </style>
 </head>
@@ -52,6 +55,45 @@
                         </div>
                         <div class="field has-text-centered">
                             <button id="copy-generated-link-button" class="button is-info">Copy Link</button>
+                        </div>
+                    </div>
+                    <!-- New Section for secondary actions -->
+                    <div id="results-extra" class="is-hidden mt-5">
+                        <hr>
+                        <!-- TinyURL / Bitly Section -->
+                        <div class="field">
+                            <label class="label has-text-centered">Shrink It Further</label>
+                            <div id="tinyurl-result-area" class="is-hidden mb-3">
+                                <div class="control">
+                                    <input id="tinyurl-link" class="input is-success" type="text" readonly>
+                                </div>
+                            </div>
+                            <div class="field is-grouped is-justify-content-center">
+                                <p class="control">
+                                    <button id="tinyurl-button" class="button is-dark">Shorten with TinyURL</button>
+                                </p>
+                                <p class="control">
+                                    <button id="bitly-button" class="button is-dark">Shorten with Bitly</button>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Social Share Section -->
+                        <div class="field mt-5">
+                             <label class="label has-text-centered">Share It</label>
+                             <div class="field is-grouped is-justify-content-center share-buttons">
+                                <p class="control">
+                                    <button id="share-twitter" class="button is-info">Twitter</button>
+                                </p>
+                                <p class="control">
+                                    <button id="share-facebook" class="button is-link">Facebook</button>
+                                </p>
+                                <p class="control">
+                                    <button id="share-reddit" class="button is-warning">Reddit</button>
+                                </p>
+                                <p class="control">
+                                    <button id="share-email" class="button is-danger">Email</button>
+                                </p>
+                             </div>
                         </div>
                     </div>
                 </div>
