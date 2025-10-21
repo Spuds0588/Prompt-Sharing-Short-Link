@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt.share | Turn Your Prompts Into Shareable, Bookmarkable Links</title>
+    <meta name="description" content="Prompt.share is the first free tool to create permanent, shareable, and LLM-agnostic links for your text prompts. Build your personal prompt library and share it anywhere.">
+    <meta name="keywords" content="prompt linker, shareable prompt, bookmark prompt, llm agnostic, prompt library, permanent link for text, prompt engineering tool">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+    <style>
+        :root {
+            --primary-blue: #0d6efd;
+            --dark-blue: #0a58ca;
+            --darkest-blue: #031D44;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --black: #212529;
+            --light-text: #f8f9fa;
+            --border-grey: #dee2e6;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--white); color: var(--black); }
+        .section-heading { color: var(--darkest-blue); font-weight: 700; }
+        .section.is-light { background-color: var(--light-bg); }
+
+        .box.is-themed-dark {
+            background-color: var(--darkest-blue);
+            border-color: transparent;
+            color: var(--light-text);
+        }
+        .box.is-themed-dark .title { color: var(--white); }
+        .box.is-themed-dark .icon, .box.is-themed-dark li { color: var(--light-text); }
+        
+        .box.is-standard {
+            background-color: var(--white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-grey);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .box.is-standard:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+        .box.is-standard .icon { color: var(--black); }
+
+        .hero { background-color: var(--light-bg); }
+        .hero .title { color: var(--darkest-blue); }
+        .hero .subtitle { color: var(--black); }
+        .hero .button.is-primary { background-color: var(--primary-blue); }
+        .hero .button.is-primary:hover { background-color: var(--dark-blue); }
+
+        .footer { background-color: var(--darkest-blue); color: var(--light-text); }
+        .footer a { color: var(--white); }
+        .footer a:hover { color: var(--primary-blue); }
+        .footer .separator { color: var(--primary-blue); }
+
+        @media screen and (max-width: 768px) {
+            .hero-cta.button { white-space: normal; height: auto; padding: 1rem 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-medium">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title is-size-1-desktop is-size-2-mobile">
+                    Turn Your Prompts Into Permanent Links
+                </h1>
+                <h2 class="subtitle is-size-4-desktop is-size-5-mobile">
+                    The first tool that creates a single, bookmarkable link for any prompt and its destination. Save them, share them, reuse them forever.
+                </h2>
+                <div class="mt-5">
+                    <a href="/creator.html" class="button is-primary is-large is-rounded hero-cta">Create a Linkable Prompt</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="problem" class="section is-light">
+        <div class="container has-text-centered">
+            <h2 class="title is-2 section-heading">Your Best Prompts Are Trapped</h2>
+            <div class="columns is-centered">
+                <div class="column is-10-tablet is-8-desktop">
+                    <div class="box p-5 is-themed-dark">
+                        <p class="is-size-5 mb-5">Your most powerful prompts are stuck in text files, buried in chat histories, or saved as messy notes. They're disorganized, hard to share, and impossible to bookmark for quick access.</p>
+                        <div class="columns is-mobile is-multiline checklist">
+                            <div class="column is-half-tablet is-full-mobile">
+                                <ul class="ml-4">
+                                    <li class="mb-2"><span class="icon mr-2"><i class="fas fa-times-circle"></i></span>Prompts lost in chat history</li>
+                                    <li class="mb-2"><span class="icon mr-2"><i class="fas fa-times-circle"></i></span>No way to bookmark a great prompt</li>
+                                    <li><span class="icon mr-2"><i class="fas fa-times-circle"></i></span>Can't link a prompt to a specific AI</li>
+                                </ul>
+                            </div>
+                            <div class="column is-half-tablet is-full-mobile">
+                                <ul class="ml-4">
+                                    <li class="mb-2"><span class="icon mr-2"><i class="fas fa-check-circle"></i></span>You want a permanent prompt library</li>
+                                    <li class="mb-2"><span class="icon mr-2"><i class="fas fa-check-circle"></i></span>You need one-click access</li>
+                                    <li><span class="icon mr-2"><i class="fas fa-check-circle"></i></span>You want future-proof, agnostic links</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solution" class="section">
+        <div class="container has-text-centered">
+            <h2 class="title is-2 section-heading">Prompt.share Gives Your Text a Home</h2>
+            <p class="is-size-5 mb-5">Prompt.share encodes your entire prompt—and its destination URL—directly into the link itself. This makes your link self-contained, private, and permanent. It lives in your bookmarks, not our database.</p>
+            <figure class="image is-16by9 is-standard box">
+                <img src="https://placehold.co/1200x675/031D44/f8f9fa?text=Create%20a%20Permanent%2C%20Linkable%20Prompt&font=raleway" alt="A visual demonstration of the Prompt.share creator page.">
+            </figure>
+        </div>
+    </section>
+
+    <section id="process" class="section is-light">
+        <div class="container has-text-centered">
+            <h2 class="title is-2 section-heading">How it Works: From Text to Asset in Seconds</h2>
+            <div class="columns is-centered is-multiline">
+                <div class="column is-one-third-desktop is-full-mobile">
+                    <div class="box p-5 is-themed-dark">
+                        <h3 class="title is-4">1. Add Your Prompt</h3>
+                        <p>Paste your text and the optional destination URL (like ChatGPT, Midjourney, etc.).</p>
+                    </div>
+                </div>
+                <div class="column is-one-third-desktop is-full-mobile">
+                    <div class="box p-5 is-themed-dark">
+                        <h3 class="title is-4">2. Generate the Link</h3>
+                        <p>Your text is instantly encoded into a single, self-contained link.</p>
+                    </div>
+                </div>
+                <div class="column is-one-third-desktop is-full-mobile">
+                    <div class="box p-5 is-themed-dark">
+                        <h3 class="title is-4">3. Bookmark & Share</h3>
+                        <p>Save it to your browser bookmarks to build your library, or share it anywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="use-cases" class="section">
+        <div class="container has-text-centered">
+            <h2 class="title is-2 section-heading">Unlock Your Prompt Library</h2>
+            <div class="columns is-centered is-multiline">
+                <div class="column is-one-third-desktop is-half-tablet">
+                    <div class="box p-5 is-standard">
+                        <p class="is-size-4 mb-3"><span class="icon"><i class="fas fa-robot"></i></span></p>
+                        <h4 class="title is-4">AI Enthusiasts</h4>
+                        <p>Package your prompt <strong>with a link</strong> to your favorite AI tool. Create a universal, LLM-agnostic library.</p>
+                    </div>
+                </div>
+                <div class="column is-one-third-desktop is-half-tablet">
+                    <div class="box p-5 is-standard">
+                        <p class="is-size-4 mb-3"><span class="icon"><i class="fas fa-code"></i></span></p>
+                        <h4 class="title is-4">Developers</h4>
+                        <p>Create permanent links to code snippets or error logs that you can reference and share instantly.</p>
+                    </div>
+                </div>
+                <div class="column is-one-third-desktop is-half-tablet">
+                    <div class="box p-5 is-standard">
+                        <p class="is-size-4 mb-3"><span class="icon"><i class="fas fa-bookmark"></i></span></p>
+                        <h4 class="title is-4">Power Users</h4>
+                        <p>Bookmark complex instructions, templates, or notes directly in your browser toolbar for one-click access.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="call-to-action" class="section is-light">
+        <div class="container has-text-centered">
+            <h2 class="title is-2 section-heading">Build Your Personal Prompt Library, One Link at a Time.</h2>
+            <p class="is-size-5 mb-5">It's free, private, and powerful. Create your first linkable prompt now.</p>
+            <a href="/creator.html" class="button is-primary is-large is-rounded">Get Started - It's Free!</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>© 2024 mypromptl.ink. All rights reserved.</p>
+            <p>A serverless project for creating permanent, private prompt links.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
