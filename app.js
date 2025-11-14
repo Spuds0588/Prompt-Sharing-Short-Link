@@ -88,9 +88,15 @@
         const promptField = document.getElementById('prompt-field');
         const resultsExtra = document.getElementById('results-extra');
 
+        // Null checks for all required elements
+        if (!promptInput || !generateButton || !resultArea || !generatedLinkInput || !copyGeneratedLinkButton || !promptField) {
+            console.error('[Prompt.share] One or more required elements are missing in creator.html. Aborting handleCreatorPage.');
+            return;
+        }
+
         generateButton.addEventListener('click', () => {
             console.log('[Prompt.share] Generate button clicked.');
-            const prompt = promptInput.value.trim();
+            const prompt = promptInput.value ? promptInput.value.trim() : '';
             if (!prompt) {
                 alert('Prompt cannot be empty.');
                 return;
@@ -104,7 +110,7 @@
                 const shareUrl = `${baseUrl}?p=${encodedData}`;
                 generatedLinkInput.value = shareUrl;
                 resultArea.classList.remove('is-hidden');
-                resultsExtra.classList.remove('is-hidden');
+                if (resultsExtra) resultsExtra.classList.remove('is-hidden');
                 promptField.classList.add('is-hidden');
             } else {
                 alert('Failed to generate the link. Please check the console for errors.');
