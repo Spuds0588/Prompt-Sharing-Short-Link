@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompt.share | Create New</title>
+    <title>mypromptl.ink | Create New</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <style>
         .hero {
@@ -22,25 +22,36 @@
         .share-buttons .button {
             margin: 5px;
         }
+        .brand-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .brand-logo img {
+            max-height: 6vw;
+            min-height: 48px;
+            max-width: 90vw;
+            height: auto;
+            width: auto;
+        }
     </style>
 </head>
 <body>
     <section class="hero is-fullheight">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title is-1 has-text-centered">Prompt.share</h1>
+                <div class="brand-logo">
+                    <a href="/">
+                        <img src="Assets/Logo_light_transparent.png" alt="mypromptl.ink logo">
+                    </a>
+                </div>
                 <h2 class="subtitle is-4 has-text-centered">Create a new shareable prompt link.</h2>
                 <div class="box">
-                    <div class="field">
+                    <div class="field" id="prompt-field">
                         <label class="label">Your Long Prompt</label>
                         <div class="control">
                             <textarea id="prompt-input" class="textarea" rows="8" placeholder="Enter the prompt you want to share..."></textarea>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Destination URL (Optional)</label>
-                        <div class="control">
-                            <input id="destination-input" class="input" type="url" placeholder="https://example.com/optional-destination">
                         </div>
                     </div>
                     <div class="field has-text-centered">
@@ -62,38 +73,11 @@
                         <hr>
                         <!-- TinyURL / Bitly Section -->
                         <div class="field">
-                            <label class="label has-text-centered">Shrink It Further</label>
-                            <div id="tinyurl-result-area" class="is-hidden mb-3">
-                                <div class="control">
-                                    <input id="tinyurl-link" class="input is-success" type="text" readonly>
-                                </div>
-                            </div>
-                            <div class="field is-grouped is-justify-content-center">
-                                <p class="control">
-                                    <button id="tinyurl-button" class="button is-dark">Shorten with TinyURL</button>
-                                </p>
-                                <p class="control">
-                                    <button id="bitly-button" class="button is-dark">Shorten with Bitly</button>
-                                </p>
-                            </div>
+                            <p class="has-text-centered">Want a shorter link? Use a URL shortener like <a href='https://shorturl.at/' target='_blank' rel='noopener noreferrer'>ShortURL</a> or <a href='https://bitly.com/' target='_blank' rel='noopener noreferrer'>Bitly</a> to reduce the length even further.</p>
                         </div>
                         <!-- Social Share Section -->
                         <div class="field mt-5">
-                             <label class="label has-text-centered">Share It</label>
-                             <div class="field is-grouped is-justify-content-center share-buttons">
-                                <p class="control">
-                                    <button id="share-twitter" class="button is-info">Twitter</button>
-                                </p>
-                                <p class="control">
-                                    <button id="share-facebook" class="button is-link">Facebook</button>
-                                </p>
-                                <p class="control">
-                                    <button id="share-reddit" class="button is-warning">Reddit</button>
-                                </p>
-                                <p class="control">
-                                    <button id="share-email" class="button is-danger">Email</button>
-                                </p>
-                             </div>
+                            <p class="has-text-centered">Copy and share your link with anyone, anywhere!</p>
                         </div>
                     </div>
                 </div>
@@ -105,12 +89,26 @@
         <div class="footer">
             <div class="content has-text-centered">
                 <p>
-                    <strong>Prompt.share</strong> by your team. This is a client-side tool and your data is never sent to a server.
+                    <strong>mypromptl.ink</strong> is a tool for easily sharing prompts with others via a link, no matter the agent being used.
                 </p>
             </div>
         </div>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
     <script src="app.js"></script>
+    <script>
+    // Only handle showing/hiding and updating the destination link as a styled anchor
+    document.addEventListener('DOMContentLoaded', function() {
+        const generateButton = document.getElementById('generate-button');
+        const promptField = document.getElementById('prompt-field');
+        const resultArea = document.getElementById('result-area');
+
+        generateButton.addEventListener('click', function() {
+            // Hide prompt field after link is generated
+            promptField.classList.add('is-hidden');
+            resultArea.classList.remove('is-hidden');
+        });
+    });
+    </script>
 </body>
 </html>

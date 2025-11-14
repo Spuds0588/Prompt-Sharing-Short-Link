@@ -3,62 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompt.share | Shared Prompt</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+    <title>mypromptl.ink | Shared Prompt</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <style>
-        :root {
-            --bg-color: #f8f9fa;
-            --text-color: #212529;
-            --box-bg-color: #ffffff;
-            --box-border-color: #dee2e6;
-            --primary-blue: #0d6efd;
-            --darkest-blue: #031D44;
+        .hero {
+            background-color: #f5f5f5;
         }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #1a1a1a;
-                --text-color: #f0f0f0;
-                --box-bg-color: #2c2c2c;
-                --box-border-color: #444;
-            }
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+        .container {
+            max-width: 800px;
+            margin: auto;
         }
         .box {
-            background-color: var(--box-bg-color);
-            border: 1px solid var(--box-border-color);
+            background-color: #fff;
+            border: 1px solid #eee;
         }
         .title, .label {
-            color: var(--text-color) !important;
-        }
-        .hero.is-fullheight-with-navbar {
-            min-height: calc(100vh - 3.25rem);
-        }
-        .navbar {
-            background-color: var(--box-bg-color);
-            border-bottom: 1px solid var(--box-border-color);
-        }
-        .navbar-item.brand-text {
-            font-weight: bold;
-            color: var(--text-color);
+            color: #222 !important;
         }
         #prompt-display {
             white-space: pre-wrap;
             word-wrap: break-word;
-            background-color: var(--bg-color);
-            border: 1px solid var(--box-border-color);
+            background-color: #f5f5f5;
+            border: 1px solid #eee;
             border-radius: 4px;
             padding: 1.25em 1.5em;
             font-family: monospace;
-            color: var(--text-color);
+            color: #222;
         }
         .jump-to-ai .button {
             margin: 5px;
+        }
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
+        .navbar-item.brand-logo img {
+            max-height: 6vw;
+            min-height: 48px;
+            max-width: 90vw;
+            height: auto;
+            width: auto;
         }
     </style>
 </head>
@@ -66,9 +50,8 @@
     <nav class="navbar">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item brand-text" href="/welcome.html">
-                    <!-- TODO: Replace with light/dark logo -->
-                    Prompt.share
+                <a class="navbar-item brand-logo" href="/welcome.html">
+                    <img src="Assets/Logo_light_transparent.png" alt="mypromptl.ink logo">
                 </a>
             </div>
             <div class="navbar-menu">
@@ -82,29 +65,20 @@
             </div>
         </div>
     </nav>
-
-    <section class="hero is-fullheight-with-navbar">
+    <section class="hero is-fullheight">
         <div class="hero-body">
-            <div class="container" style="max-width: 800px;">
+            <div class="container">
                 <div class="box">
                     <div id="loading-state">
                         <p class="has-text-centered">Decoding prompt...</p>
                     </div>
                     <div id="content-state" class="is-hidden">
                         <h1 class="title is-4">Your Shared Prompt is Ready</h1>
-                        
                         <div class="field is-grouped">
                             <p class="control is-expanded">
                                 <button id="copy-button" class="button is-primary is-fullwidth">
-                                    <span class="icon"><i class="fas fa-copy"></i></span>
-                                    <span>Copy Prompt</span>
+                                    Copy Prompt
                                 </button>
-                            </p>
-                            <p class="control is-expanded">
-                                <a id="redirect-link" class="button is-link is-fullwidth is-hidden" target="_blank" rel="noopener noreferrer">
-                                    <span class="icon"><i class="fas fa-external-link-alt"></i></span>
-                                    <span>Go to Original Destination</span>
-                                </a>
                             </p>
                         </div>
                         <hr>
@@ -115,18 +89,7 @@
                             </div>
                         </div>
                         <div class="field mt-5">
-                            <label class="label has-text-centered">Or, jump directly to an AI:</label>
-                            <div class="field is-grouped is-justify-content-center jump-to-ai">
-                               <p class="control">
-                                   <button id="jump-chatgpt" class="button">ChatGPT</button>
-                               </p>
-                               <p class="control">
-                                   <button id="jump-claude" class="button">Claude</button>
-                               </p>
-                               <p class="control">
-                                   <button id="jump-gemini" class="button">Gemini</button>
-                               </p>
-                            </div>
+                            <p class="has-text-centered">Copy and share your link with anyone, anywhere!</p>
                         </div>
                     </div>
                     <div id="error-state" class="is-hidden">
@@ -137,8 +100,42 @@
             </div>
         </div>
     </section>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
     <script src="app.js"></script>
+    <script>
+    // Compose and show the destination link as a styled button below the prompt if a destination is present
+    function extractDomain(url) {
+        try {
+            let domain = url.trim();
+            domain = domain.replace(/^https?:\/\//i, '');
+            domain = domain.replace(/^www\./i, '');
+            domain = domain.split('/')[0];
+            return domain;
+        } catch (e) {
+            return url;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        // ...existing code...
+        const redirectLink = document.getElementById('redirect-link');
+        const destinationLinkField = document.getElementById('destination-link-field');
+        // This assumes your app.js or similar sets a variable like destinationUrl when decoding
+        if (typeof destinationUrl === 'string' && destinationUrl.trim()) {
+            const domain = extractDomain(destinationUrl);
+            redirectLink.textContent = `Go to ${domain}`;
+            redirectLink.href = destinationUrl;
+            destinationLinkField.classList.remove('is-hidden');
+        } else {
+            destinationLinkField.classList.add('is-hidden');
+        }
+    });
+    </script>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>mypromptl.ink</strong> is a tool for easily sharing prompts with others via a link, no matter the agent being used.
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
